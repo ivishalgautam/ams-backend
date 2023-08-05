@@ -46,10 +46,10 @@ async function updateHospitalById(req, res) {
   // console.log(updateColumns, updateValues);
   try {
     const hospital = await pool.query(
-      `UPDATE hospitals SET ${updateColumns} WHERE id=$${
+      `UPDATE hospitals SET ${updateColumns}, updated_at=${
         updateValues.length + 1
-      } RETURNING *;`,
-      [...updateValues, hospitalId]
+      } WHERE id=$${updateValues.length + 2} RETURNING *;`,
+      [...updateValues, new Date(), hospitalId]
     );
     if (hospital.rowCount === 0)
       return res.status(404).json({ error: "Hospital not found!" });

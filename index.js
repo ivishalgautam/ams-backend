@@ -10,6 +10,8 @@ app.use(morgan("dev"));
 
 app.use("/api/hospitals", require("./routes/hospital"));
 app.use("/api/departments", require("./routes/department"));
+app.use("/api/sectors", require("./routes/sector"));
+app.use("/api/doctors", require("./routes/doctor"));
 
 app.get("/", (req, res) => {
   res.json({ message: "hello" });

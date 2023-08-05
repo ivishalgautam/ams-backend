@@ -22,29 +22,36 @@ CREATE TABLE departments (
 
 CREATE TABLE doctors (
     id SERIAL PRIMARY KEY,
-    fullname VARCHAR(255) NOT NULL,
-    username VARCHAR(40) NOT NULL,
-    password VARCHAR(40) NOT NULL,
-    email VARCHAR(40) NOT NULL,
-    phone VARCHAR(20) NOT NULL,
-    department VARCHAR(40) NOT NULL,
-    qualification VARCHAR(40) NOT NULL,
-    institution VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    location VARCHAR(40) NOT NULL,
+    fullname VARCHAR(255) NOT NULL,--
+    email VARCHAR(40) NOT NULL,--
+    phone VARCHAR(20) NOT NULL,--
+    username VARCHAR(40) NOT NULL,--
+    password VARCHAR(40) NOT NULL,--
+    department VARCHAR(40) NOT NULL,--
+    qualification VARCHAR(40) NOT NULL,--
+    institution VARCHAR(255) NOT NULL,--
+    address VARCHAR(255) NOT NULL,--
+    location VARCHAR(40) NOT NULL,--
+    fees INT NOT NULL,--
+    total_earning INT DEFAULT 0;
+    about VARCHAR(255),--
+    schedule_days VARCHAR(10) [],--
     image_url TEXT,
     is_featured BOOLEAN DEFAULT false,
     assistant_number VARCHAR(20),
-    fees INT NOT NULL,
-    about VARCHAR(255),
-    schedule_days VARCHAR(10) [],
     is_banned BOOLEAN DEFAULT false,
     is_deleted BOOLEAN DEFAULT false,
     department_id INT,
     hospital_id INT,
+    created_at TIMESTAMP DEFAULT NOW();
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
     FOREIGN KEY (department_id) REFERENCES departments(id),
-    FOREIGN KEY (hospital_id) REFERENCES hospital_id(id),
+    FOREIGN KEY (hospital_id) REFERENCES hospitals(id),
 );
+
+ALTER TABLE doctors ADD COLUMN created_at TIMESTAMP DEFAULT NOW();
+ALTER TABLE doctors ADD COLUMN updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP;
+
 
 CREATE TABLE appointments (
     id SERIAL PRIMARY KEY,
@@ -53,6 +60,11 @@ CREATE TABLE appointments (
     is_deleted BOOLEAN DEFAULT false,
     doctor_id INT,
     FOREIGN KEY (doctor_id) REFERENCES doctors(id)
+);
+
+CREATE TABLE sectors(
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE users (
