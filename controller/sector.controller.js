@@ -33,7 +33,9 @@ async function createMultipleSector(req, res) {
 
 async function getSectors(req, res) {
   try {
-    const sectors = await pool.query(`SELECT * FROM sectors`);
+    const sectors = await pool.query(
+      `SELECT DISTINCT ON (name) * FROM sectors ORDER BY name`
+    );
     res.json(sectors.rows);
   } catch (error) {
     res.status(500).json({ error: error.message });

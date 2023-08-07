@@ -1,14 +1,22 @@
 CREATE DATABASE appointment_management;
 
+CREATE TYPE department_type AS (
+    id int,
+    name VARCHAR
+);
+
 CREATE TABLE hospitals (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
-    address VARCHAR(255) NOT NULL,
-    description VARCHAR(255) NOT NULL,
-    telephone VARCHAR(20) NOT NULL,
     email VARCHAR(40) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    telephone VARCHAR(20) NOT NULL,
+    description VARCHAR(255) NOT NULL,
     speciality VARCHAR(255),
-    is_deleted BOOLEAN DEFAULT false
+    departments JSON,
+    is_deleted BOOLEAN DEFAULT false,
+	created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE departments (

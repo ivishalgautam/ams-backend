@@ -1,11 +1,20 @@
 const { pool } = require("../config/db");
 
 async function createHospital(req, res) {
-  const { name, address, description, telephone, email, speciality } = req.body;
+  const {
+    name,
+    address,
+    description,
+    telephone,
+    email,
+    speciality,
+    departments,
+  } = req.body;
+  console.log(departments);
   try {
     const hospital = await pool.query(
-      `INSERT INTO hospitals (name, address, description, telephone, email, speciality) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`,
-      [name, address, description, telephone, email, speciality]
+      `INSERT INTO hospitals (name, address, description, telephone, email, speciality, departments) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
+      [name, address, description, telephone, email, speciality, departments]
     );
     res.json(hospital.rows[0]);
   } catch (error) {
